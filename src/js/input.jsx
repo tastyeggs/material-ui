@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var React = require('react');
+var React = require('react/addons');
 var Classable = require('./mixins/classable.js');
 
 var Input = React.createClass({
@@ -53,17 +53,19 @@ var Input = React.createClass({
       'mui-text': this.props.type === 'text',
       'mui-error': this.props.error !== undefined && this.props.error !== null
     }),
+    inputClasses = {'mui-has-value': !!this.state.value},
+    textAreaClasses = {'mui-has-value': !!this.state.value, 'mui-input-textarea': true},
     placeholder = this.props.inlinePlaceholder ? this.props.placeholder : "",
     inputElement = this.props.multiline ?
       this.props.valueLink ?
-        <textarea {...this.props} className="mui-input-textarea" placeholder={placeholder}
+        <textarea {...this.props} className={React.addons.classSet(textAreaClasses)} placeholder={placeholder}
           rows={this.state.rows} /> :
-        <textarea {...this.props} value={this.state.value} className="mui-input-textarea"
+        <textarea {...this.props} value={this.state.value} className={React.addons.classSet(textAreaClasses)}
           placeholder={placeholder} rows={this.state.rows} onChange={this._onTextAreaChange} /> :
         this.props.valueLink ?
-          <input {...this.props} ref="input" placeholder={placeholder} /> :
+          <input {...this.props} ref="input" placeholder={placeholder} className={React.addons.classSet(inputClasses)} /> :
           <input {...this.props} ref="input" value={this.state.value} placeholder={placeholder}
-            onChange={this._onInputChange} />
+            onChange={this._onInputChange} className={React.addons.classSet(inputClasses)} />
     placeholderSpan = this.props.inlinePlaceholder ? null : <span className="mui-input-placeholder"
       onClick={this._onPlaceholderClick}>{this.props.placeholder}</span>;
 
@@ -90,7 +92,7 @@ var Input = React.createClass({
   clearValue: function() {
     this.setValue("");
   },
-  
+
   focus: function () {
     if(this.isMounted()) this.refs.input.getDOMNode().focus();
   },

@@ -14,7 +14,7 @@
     padding-bottom: 14px;
     width: @input-width;
 
-    &:focus, &:valid {
+    &:focus, &:valid, &.mui-has-value {
       outline: none;
       box-shadow: none;
       padding: 0;
@@ -98,12 +98,12 @@
     box-sizing: border-box;
     padding-bottom: 14px;
 
-    &[type='text'], &[type='password'] {
+    &[type='text'], &[type='password'], &[type='email'], &[type='search'], &[type='tel'], &[type='number'] {
       display: block;
       width: @input-width;
     }
 
-    &:focus, &:valid {
+    &:focus, &:valid, &.mui-has-value {
       outline: none;
       box-shadow: none;
       &~.mui-input-placeholder {
