@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-var React = require('react');
+var React = require('react/addons');
 var Classable = require('./mixins/classable.js');
 
 var Input = React.createClass({
@@ -53,16 +53,18 @@ var Input = React.createClass({
       'mui-text': this.props.type === 'text',
       'mui-error': this.state.error === true
     }),
-		inputElement = this.props.multiline ?
-	    this.props.valueLink ? 
-	    	<textarea {...this.props} className="mui-input-textarea" placeholder=""
-	    		rows={this.state.rows} /> : 
-	    	<textarea {...this.props} value={this.state.value} className="mui-input-textarea" 
-	    		placeholder="" rows={this.state.rows} onChange={this._onTextAreaChange} /> :
-	      this.props.valueLink ? 
-	    		<input {...this.props} ref="input" placeholder="" /> :
-	    		<input {...this.props} ref="input" value={this.state.value} placeholder=""
-	    			onChange={this._onInputChange} />;
+        inputClasses = {'mui-has-value': !!this.state.value},
+        textAreaClasses = {'mui-has-value': !!this.state.value, 'mui-input-textarea': true},
+        inputElement = this.props.multiline ?
+        this.props.valueLink ?
+            <textarea {...this.props} className="mui-input-textarea" placeholder="" className={React.addons.classSet(textAreaClasses)}
+                rows={this.state.rows} /> :
+            <textarea {...this.props} value={this.state.value} className={React.addons.classSet(textAreaClasses)}
+                placeholder="" rows={this.state.rows} onChange={this._onTextAreaChange} /> :
+          this.props.valueLink ?
+                <input {...this.props} ref="input" placeholder=""  className={React.addons.classSet(textAreaClasses)} /> :
+                <input {...this.props} ref="input" value={this.state.value} placeholder="" className={React.addons.classSet(inputClasses)}
+                    onChange={this._onInputChange} />;
 
     return (
       <div ref={this.props.ref} className={classes}>
