@@ -2,6 +2,7 @@ var React = require('react'),
   Events = require('./utils/events.js'),
   KeyCode = require('./utils/key-code.js'),
   Classable = require('./mixins/classable'),
+  IconButton = require('./icon-button.jsx'),
   Paper = require('./paper.jsx');
 
 var Dialog = React.createClass({
@@ -12,7 +13,8 @@ var Dialog = React.createClass({
     openImmediately: React.PropTypes.bool,
     title: React.PropTypes.string,
     actions: React.PropTypes.array,
-    onShow: React.PropTypes.func
+    onShow: React.PropTypes.func,
+    showCloseButton: React.PropTypes.bool
   },
 
   getDefaultProps: function() {
@@ -50,11 +52,16 @@ var Dialog = React.createClass({
         return <div className="action" onClick={this.dismiss}>{a.text}</div>;
       }.bind(this));
 
+    var closeButton = this.props.showCloseButton? (
+      <IconButton icon="content-clear" onClick={this._handleClickAway} />
+    ) : null;
+
     return (
       <div className={mainClasses}>
         <Paper zDepth={4}>
           <h3 className="dialog-title">
             {this.props.title}
+            {closeButton}
           </h3>
           <div className="dialog-content">
             {this.state.open ? this.props.children : ''}
@@ -81,7 +88,7 @@ var Dialog = React.createClass({
 
   _handleClickAway: function() {
     this.dismiss();
-  }, 
+  },
 
   _checkEscapeKeyUp: function(e) {
     if (e.keyCode == KeyCode.ESC) {
