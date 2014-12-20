@@ -31,10 +31,18 @@ var Dialog = React.createClass({
 
   componentDidMount: function() {
     Events.on(document, 'keyup', this._checkEscapeKeyUp);
+
+    //calculate height and use that to center the dialog vertically
+    var dom = this.getDOMNode(),
+      height = dom.offsetHeight;
+
+    dom.style.marginTop = -1 * height / 2 + 'px';
+    document.body.scrollTop = 0;
   },
 
   componentWillUnmount: function() {
     Events.off(document, 'keyup', this._checkEscapeKeyUp);
+    $(":root").removeClass("material-ui-dialog");
   },
 
   componentDidUpdate: function (prevProps, prevState) {
@@ -43,6 +51,7 @@ var Dialog = React.createClass({
       height = dom.offsetHeight;
 
     dom.style.marginTop = -1 * height / 2 + 'px';
+
   },
 
   render: function() {

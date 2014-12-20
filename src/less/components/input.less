@@ -22,19 +22,19 @@
 
       &+.mui-input-placeholder {
         font-size: 13px;
-        color: blue;
+        color: @textarea-background-color;
         top: -27px;
 
         &+.mui-input-highlight {
           width: 0;
-          background-color: blue;
+          background-color: @textarea-background-color;
           left: 0;
           top: 1px;
 
           &+.mui-input-bar {
 
             &::before, &::after {
-              background-color: blue;
+              background-color: @textarea-background-color;
               width: 50%;
             }
 
@@ -107,7 +107,7 @@
       outline: none;
       box-shadow: none;
       &+.mui-input-placeholder {
-        color: blue;
+        color: @input-background-color;
         font-size: @input-placeholder-size !important;
         font-weight: 300;
         top: -32px;
@@ -115,13 +115,13 @@
 
         &+.mui-input-highlight {
           width: 0;
-          background-color: blue;
+          background-color: @input-background-color;
           .ease-out;
 
           &+.mui-input-bar {
 
             &::before, &::after {
-              background-color: blue;
+              background-color: @input-background-color;
               width: 50%;
             }
 
@@ -197,7 +197,7 @@
 
   .mui-input-description {
     display: none;
-    color: blue;
+    color: @input-background-color;
     position: absolute;
     top: 36px;
   }
