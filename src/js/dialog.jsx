@@ -2,6 +2,7 @@ var React = require('react');
 var Classable = require('./mixins/classable');
 var DialogWindow = require('./dialog-window.jsx');
 var FlatButton = require('./flat-button.jsx');
+var IconButton = require('./icon-button.jsx');
 
 var Dialog = React.createClass({
 
@@ -9,7 +10,8 @@ var Dialog = React.createClass({
 
   propTypes: {
     title: React.PropTypes.string,
-    actions: React.PropTypes.array
+    actions: React.PropTypes.array,
+    showCloseButton: React.PropTypes.bool
   },
 
   getDefaultProps: function() {
@@ -28,6 +30,10 @@ var Dialog = React.createClass({
     var classes = this.getClasses('mui-dialog');
     var actions = this._getDialogActions();
 
+    var closeButton = this.props.showCloseButton? (
+      <IconButton icon="content-clear" onClick={this.dismiss} />
+    ) : null;
+
     return (
       <DialogWindow
         {...other}
@@ -35,11 +41,11 @@ var Dialog = React.createClass({
         className={classes}
         actions={actions}>
 
-        <h3 className="mui-dialog-title">{this.props.title}</h3>
+        <h3 className="mui-dialog-title">{this.props.title}{closeButton}</h3>
         <div ref="dialogContent" className="mui-dialog-content">
           {this.props.children}
         </div>
-        
+
       </DialogWindow>
     );
   },
