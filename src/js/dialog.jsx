@@ -43,6 +43,8 @@ var Dialog = React.createClass({
       height = dom.offsetHeight;
 
     dom.style.marginTop = -1 * height / 2 + 'px';
+    //Scroll to top; necessary for mobile devices with less height
+    document.body.scrollTop = 0;
   },
 
   render: function() {

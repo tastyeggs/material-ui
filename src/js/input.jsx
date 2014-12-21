@@ -26,25 +26,26 @@ var Input = React.createClass({
     return {
       value: this.props.defaultValue,
       error: false,
-      rows: 1
+      errorText: ""
     };
   },
 
   getDefaultProps: function() {
     return {
       multiline: false,
-      required: true
+      required: true,
+      rows: 1
     };
   },
 
   setError: function(error) {
     this.props.error = error;
-    this.setState({ error: true });
+    this.setState({ error: true, errorText: error });
   },
 
   removeError: function() {
     this.props.error = null;
-    this.setState({ error: false });
+    this.setState({ error: false, errorText: "" });
   },
 
   render: function() {
@@ -60,7 +61,7 @@ var Input = React.createClass({
             <textarea {...this.props} className="mui-input-textarea" placeholder="" className={React.addons.classSet(textAreaClasses)}
                 rows={this.state.rows} /> :
             <textarea {...this.props} value={this.state.value} className={React.addons.classSet(textAreaClasses)}
-                placeholder="" rows={this.state.rows} onChange={this._onTextAreaChange} /> :
+                placeholder="" rows={this.props.rows} onChange={this._onTextAreaChange} /> :
           this.props.valueLink ?
                 <input {...this.props} ref="input" placeholder=""  className={React.addons.classSet(textAreaClasses)} /> :
                 <input {...this.props} ref="input" value={this.state.value} placeholder="" className={React.addons.classSet(inputClasses)}
@@ -69,12 +70,12 @@ var Input = React.createClass({
     return (
       <div ref={this.props.ref} className={classes}>
         {inputElement}
-        <span className="mui-input-placeholder" 
+        <span className="mui-input-placeholder"
         	onClick={this._onPlaceholderClick}>{this.props.placeholder}</span>
         <span className="mui-input-highlight"></span>
         <span className="mui-input-bar"></span>
         <span className="mui-input-description">{this.props.description}</span>
-        <span className="mui-input-error">{this.props.error}</span>
+        <span className="mui-input-error">{this.state.errorText}</span>
       </div>
     );
   },
@@ -103,18 +104,7 @@ var Input = React.createClass({
 
   _onTextAreaChange: function(e) {
     this._onInputChange(e);
-    this._onLineBreak(e);
   },
-
-  _onLineBreak: function(e) {
-    var input = (e.target.value.slice(-1));
-
-    if(input.match(/\n/gm)) {
-      if(this.state.rows != 20) {
-        this.setState({ rows: ((this.state.rows) + 1)});
-      }
-    }
-  }
 
 });
 

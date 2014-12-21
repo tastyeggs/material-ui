@@ -37,10 +37,6 @@ var DropDownMenu = React.createClass({
     dom.style.width = menuItemsDom.offsetWidth + 'px';
   },
 
-  componentWillReceiveProps: function(nextProps) {
-    if (nextProps.hasOwnProperty('selectedIndex')) this.setState({selectedIndex: nextProps.selectedIndex});
-  },
-
   render: function() {
     var classes = this.getClasses('mui-drop-down-menu', {
       'mui-open': this.state.open
