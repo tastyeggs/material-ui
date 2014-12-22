@@ -19,7 +19,8 @@ var Input = React.createClass({
     placeholder: React.PropTypes.string,
     type: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
-    onChange: React.PropTypes.func
+    onChange: React.PropTypes.func,
+    addRowsOnNewLine: React.PropTypes.bool,
   },
 
   mixins: [Classable],
@@ -35,7 +36,8 @@ var Input = React.createClass({
     return {
       multiline: false,
       required: true,
-      type: "text"
+      type: "text",
+      addRowsOnNewLine: true
     };
   },
 
@@ -113,11 +115,13 @@ var Input = React.createClass({
   },
 
   _onLineBreak: function(e) {
-    var input = (e.target.value.slice(-1));
+    if(this.props.addRowsOnNewLine) {
+      var input = (e.target.value.slice(-1));
 
-    if(input.match(/\n/gm)) {
-      if(this.state.rows != 20) {
-        this.setState({ rows: ((this.state.rows) + 1)});
+      if(input.match(/\n/gm)) {
+        if(this.state.rows != 20) {
+          this.setState({ rows: ((this.state.rows) + 1)});
+        }
       }
     }
   }
