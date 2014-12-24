@@ -11,7 +11,8 @@ var Dialog = React.createClass({
   propTypes: {
     title: React.PropTypes.string,
     actions: React.PropTypes.array,
-    showCloseButton: React.PropTypes.bool
+    showCloseButton: React.PropTypes.bool,
+    isHeader: React.PropTypes.bool
   },
 
   getDefaultProps: function() {
@@ -34,6 +35,15 @@ var Dialog = React.createClass({
       <IconButton icon="content-clear" onClick={this.dismiss} />
     ) : null;
 
+    var header = true;
+    if(typeof this.props.isHeader !== 'undefined'){
+      header = this.props.isHeader;
+    }
+
+    var isHeader = header? (
+      <h3 className="mui-dialog-title">{this.props.title}{closeButton}</h3>
+    ) : null;
+
     return (
       <DialogWindow
         {...other}
@@ -41,7 +51,7 @@ var Dialog = React.createClass({
         className={classes}
         actions={actions}>
 
-        <h3 className="mui-dialog-title">{this.props.title}{closeButton}</h3>
+        {isHeader}
         <div ref="dialogContent" className="mui-dialog-content">
           {this.props.children}
         </div>
