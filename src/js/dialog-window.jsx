@@ -34,7 +34,16 @@ var DialogWindow = React.createClass({
   },
 
   componentDidMount: function() {
+    $(":root").addClass('dialog-on');
+    //Other browsers
+    document.body.scrollTop = 0;
+    //Firefox
+    document.documentElement.scrollTop = 0;
     this._positionDialog();
+  },
+
+  componentWillUnmount: function() {
+    $(":root").removeClass('dialog-on');
   },
 
   componentDidUpdate: function (prevProps, prevState) {
@@ -42,7 +51,7 @@ var DialogWindow = React.createClass({
   },
 
   render: function() {
-    var classes = this.getClasses('mui-dialog-window', { 
+    var classes = this.getClasses('mui-dialog-window', {
       'mui-is-shown': this.state.open
     });
     var contentClasses = 'mui-dialog-window-contents';
@@ -58,7 +67,7 @@ var DialogWindow = React.createClass({
           {this.state.open ? this.props.children : ''}
           {this.state.open ? actions : ''}
         </Paper>
-        <Overlay show={this.state.open} onTouchTap={this._handleOverlayTouchTap} />
+        <Overlay show={this.state.open} onClick={this._handleOverlayTouchTap} />
       </div>
     );
   },
