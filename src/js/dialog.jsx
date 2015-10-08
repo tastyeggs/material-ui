@@ -31,7 +31,12 @@ var Dialog = React.createClass({
     var actions = this._getDialogActions();
 
     var closeButton = this.props.showCloseButton? (
-      <IconButton icon="content-clear" onClick={this.dismiss} />
+      <svg version="1.1" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" onClick={this.dismiss}>
+          <g><g>
+              <path d="M75.765,18.367c-2.334-2.333-6.152-2.333-8.484,0L50.309,35.338L33.338,18.367c-2.333-2.333-6.152-2.333-8.485,0    l-8.485,8.485c-2.333,2.334-2.333,6.152,0,8.485l16.97,16.971l-16.97,16.971c-2.333,2.333-2.333,6.151,0,8.485l8.485,8.485    c2.333,2.333,6.152,2.333,8.485,0l16.971-16.971L67.28,86.25c2.332,2.333,6.15,2.333,8.484,0l8.486-8.485    c2.332-2.334,2.332-6.152,0-8.485L67.28,52.309l16.971-16.971c2.332-2.333,2.332-6.152,0-8.485L75.765,18.367z">
+              </path>
+          </g></g>
+      </svg>
     ) : null;
 
     return (
